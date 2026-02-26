@@ -1,10 +1,10 @@
-TestList = [1,2,3,4,5]
-TestList = list(
-    map(lambda num : num + 100, TestList)
-        # Add 100 to each element
-        #lambda num은 TestList의 각 요소를 의미
-        
-    )
+import collections
+def solution(participant, completion):
+    answer = collections.Counter(participant) - collections.Counter(completion)
+    return list(answer.keys())[0] #answer는 딕셔너리 형태로 반환되므로, 키값을 리스트로 변환하여 첫 번째 요소를 반환
 
- 
-print(TestList)
+
+test_participant = ["leo", "kiki", "eden"]
+test_completion = ["eden", "kiki"]
+
+print(solution(test_participant, test_completion))

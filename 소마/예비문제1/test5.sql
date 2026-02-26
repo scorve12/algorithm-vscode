@@ -1,0 +1,62 @@
+-- [문제 5] SQL: 월별 재구매 우수 상품
+--
+-- 아래 테이블이 있다.
+--
+-- USERS(
+--   user_id        INT,
+--   joined_at      DATE,
+--   grade          VARCHAR(20)
+-- )
+--
+-- ORDERS(
+--   order_id       INT,
+--   user_id        INT,
+--   ordered_at     DATETIME,
+--   status         VARCHAR(20),   -- 'PAID', 'CANCELLED'
+--   total_amount   INT
+-- )
+--
+-- ORDER_ITEMS(
+--   order_id       INT,
+--   product_id     INT,
+--   quantity       INT,
+--   unit_price     INT
+-- )
+--
+-- PRODUCTS(
+--   product_id     INT,
+--   category       VARCHAR(50),
+--   product_name   VARCHAR(100)
+-- )
+--
+-- 문제
+-- 2025년 1월~12월에 대해, 각 월별로 "재구매 우수 상품" 상위 3개를 조회하라.
+-- 재구매 우수 상품 점수는 다음과 같이 계산한다.
+--
+-- score = (해당 월에 해당 상품을 2회 이상 구매한 서로 다른 사용자 수) * 10
+--         + (해당 월 해당 상품의 총 매출 / 1000)
+--
+-- 조건
+-- 1) status='PAID' 주문만 집계
+-- 2) 한 사용자가 같은 상품을 같은 날 여러 번 주문해도 각각 주문 횟수로 인정
+-- 3) "2회 이상 구매한 사용자"는 월-상품 기준으로 주문 건수가 2 이상인 사용자
+-- 4) 총 매출은 quantity * unit_price 합계
+-- 5) 월별 상위 3개를 score 내림차순으로 추출
+-- 6) score가 같으면 총 매출 내림차순, 그다음 product_id 오름차순
+--
+-- 출력 컬럼
+-- month            -- '2025-01' 형식
+-- product_id
+-- product_name
+-- repeat_user_cnt  -- 2회 이상 구매한 사용자 수
+-- total_sales      -- 월 상품 총매출
+-- score
+-- ranking          -- 월별 순위 (1~3)
+--
+-- 정렬
+-- month 오름차순, ranking 오름차순
+--
+-- 요구사항
+-- - 단일 SQL로 작성할 것 (CTE 사용 가능)
+-- - 윈도우 함수 사용 가능
+-- - MySQL 8.0 기준
