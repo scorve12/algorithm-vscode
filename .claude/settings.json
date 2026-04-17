@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(g++ -std=c++17 -Wall answer.cpp -o answer_test)",
+      "Bash(echo \"exit: $?\")"
+    ]
+  }
+}
